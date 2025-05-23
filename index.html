@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Max Heart Rate / Zone 2 Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      margin: 10px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #1da1f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #0d8ddb;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Max Heart Rate / Zone 2 Calculator</h1>
+
+  <label for="age">Enter your age:</label><br />
+  <input type="number" id="age" placeholder="e.g. 42" min="1" max="120" /><br />
+
+  <button onclick="calculateHR()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateHR() {
+      const ageInput = document.getElementById("age");
+      const age = parseInt(ageInput.value);
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(age) || age < 1 || age > 120) {
+        resultDiv.innerHTML = "<span style='color: red;'>Please enter a valid age between 1 and 120.</span>";
+        ageInput.focus();
+        return;
+      }
+
+      const maxHR = 220 - age;
+      const targetLow = Math.round(maxHR * 0.5);
+      const targetHigh = Math.round(maxHR * 0.85);
+      const zone2Low = Math.round(maxHR * 0.6);
+      const zone2High = Math.round(maxHR * 0.7);
+
+      resultDiv.innerHTML = `
+        <strong>Max Heart Rate:</strong> ${maxHR} bpm<br /><br />
+        <strong>Target Heart Rate Zone (50–85%):</strong> ${targetLow}–${targetHigh} bpm<br />
+        <strong>Zone 2 (60–70%):</strong> ${zone2Low}–${zone2High} bpm
+      `;
+    }
+  </script>
+
+</body>
+</html>
